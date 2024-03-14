@@ -26,35 +26,38 @@
             <!-- aside -->
             <aside class="flex w-72 flex-col space-y-2 border-r-2 border-gray-200 bg-white p-2" style="height: 90.5vh"
                 x-show="asideOpen">
-                <Link :href="`/dashboard`"
+                <SideBarLink :href="`/dashboard`"
                     class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                 <span class="text-2xl"><i class="bx bx-home"></i></span>
                 <span>Dashboard</span>
-                </Link>
+                </SideBarLink>
 
-                <a href="#"
+                <SideBarLink :href="route('users.index')" :active="route().current('users.index')"
                     class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
                     <span class="text-2xl"><i class="bx bx-cart"></i></span>
-                    <span>Cart</span>
-                </a>
+                    <span>Users</span>
+                </SideBarLink>
 
-                <a href="#"
+                <SideBarLink :href="route('roles.index')" :active="route().current('roles.index')"
                     class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                    <span class="text-2xl"><i class="bx bx-shopping-bag"></i></span>
-                    <span>Shopping</span>
-                </a>
+                    <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                    <span>Roles</span>
+                </SideBarLink>
 
-                <a href="#"
+                <SideBarLink :href="route('permissions.index')" :active="route().current('permissions.index')"
                     class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                    <span class="text-2xl"><i class="bx bx-heart"></i></span>
-                    <span>My Favourite</span>
-                </a>
+                    <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                    <span>Permissions</span>
+                </SideBarLink>
 
-                <a href="#"
+
+                <SideBarLink :href="route('logout')" method="post" :active="route().current('logout')"
                     class="flex items-center space-x-1 rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">
-                    <span class="text-2xl"><i class="bx bx-user"></i></span>
-                    <span>Profile</span>
-                </a>
+                    <span class="text-2xl"><i class="bx bx-cart"></i></span>
+                    <span>Logout</span>
+                </SideBarLink>
+
+
             </aside>
 
             <!-- main content page -->
@@ -72,6 +75,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import SideBarLink from '@/Components/SideBarLink.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
