@@ -12,7 +12,12 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="max-w-sm w-full lg:max-w-full lg:flex">
                         <div class="px-6 py-4">
-                            <div class="font-bold text-xl mb-2">Roles Index Page</div>
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-bold text-xl">Roles Index Page</h3>
+                                <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 rounded-lg">
+                                    <Link :href="route('roles.create')">Create New Role</Link>
+                                </div>
+                            </div>
                             <hr>
 
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -21,8 +26,6 @@
                                     <tr>
                                         <th class="px-4 py-2">#</th>
                                         <th class="px-4 py-2">Name</th>
-                                        <!-- <th class="px-4 py-2">Email</th> -->
-
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -30,13 +33,14 @@
                                     <tr v-for="(role, index) in roles" :key="role.id">
                                         <td class="border px-4 py-2">{{ index + 1 }}</td>
                                         <td class="border px-4 py-2">{{ role.name }}</td>
-                                        <!-- <td class="border px-4 py-2">{{ role.email }}</td> -->
-                                        <td class="border px-4 py-2">Action</td>
+                                        <td class="border px-4 py-2">
+                                            <Link :href="`roles/${role.id}/edit`">Edit</Link> |
+                                            <Link :href="`roles/${role.id}`" method="DELETE">Delete</Link>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -45,9 +49,12 @@
 </template>
 
 
+
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+
 
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'

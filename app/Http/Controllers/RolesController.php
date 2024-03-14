@@ -27,7 +27,9 @@ class RolesController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render(
+            'Admin/Roles/RolesCreate'
+        );
     }
 
     /**
@@ -35,7 +37,12 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        Role::create($request->all());
+        return to_route('roles.index');
     }
 
     /**
@@ -67,6 +74,8 @@ class RolesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::where('id', $id)->first();
+        $role->delete();
+        return to_route('roles.index');
     }
 }
