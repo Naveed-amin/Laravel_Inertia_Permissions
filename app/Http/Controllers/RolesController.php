@@ -58,7 +58,11 @@ class RolesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role = Role::where('id', $id)->first();
+        $role = new RolesResource($role);
+        return Inertia::render('Admin/Roles/RolesEdit',[
+            'role' => $role,
+        ]);
     }
 
     /**
@@ -66,7 +70,10 @@ class RolesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $role = Role::where('id', $id)->first();
+        $role->update($request->all());
+
+        return to_route('roles.index');
     }
 
     /**

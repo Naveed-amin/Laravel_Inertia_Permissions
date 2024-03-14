@@ -48,7 +48,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
-
+import { defineProps } from 'vue';
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 

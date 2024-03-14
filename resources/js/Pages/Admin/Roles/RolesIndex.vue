@@ -7,8 +7,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="py-12 w-full">
+            <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="max-w-sm w-full lg:max-w-full lg:flex">
                         <div class="px-6 py-4">
@@ -20,26 +20,28 @@
                             </div>
                             <hr>
 
-                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th class="px-4 py-2">#</th>
-                                        <th class="px-4 py-2">Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(role, index) in roles" :key="role.id">
-                                        <td class="border px-4 py-2">{{ index + 1 }}</td>
-                                        <td class="border px-4 py-2">{{ role.name }}</td>
-                                        <td class="border px-4 py-2">
-                                            <Link :href="`roles/${role.id}/edit`">Edit</Link> |
-                                            <Link :href="`roles/${role.id}`" method="DELETE">Delete</Link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="w-full">
+                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 w-full">
+                                    <thead
+                                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th class="px-4 py-2">#</th>
+                                            <th class="px-4 py-2">Name</th>
+                                            <th class="px-4 py-2">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(role, index) in roles" :key="role.id">
+                                            <td class="border px-4 py-2">{{ index + 1 }}</td>
+                                            <td class="border px-4 py-2">{{ role.name }}</td>
+                                            <td class="border px-4 py-2">
+                                                <Link :href="`roles/${role.id}/edit`">Edit</Link> |
+                                                <Link :href="`roles/${role.id}`" method="DELETE">Delete</Link>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
