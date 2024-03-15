@@ -31,7 +31,7 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-if="permissions.length > 0">
                                     <tr v-for="(permission, index) in permissions" :key="permission.id">
                                         <td class="border px-4 py-2">{{ index + 1 }}</td>
                                         <td class="border px-4 py-2">{{ permission.name }}</td>
@@ -41,7 +41,11 @@
                                                 <Link :href="`permissions/${permission.id}/edit`" class="text-green-400 hover:text-green-600">Edit</Link> |
                                                 <Link :href="`permissions/${permission.id}`" method="DELETE" class="text-red-400 hover:text-red-600">Delete</Link>
                                             </td>
-
+                                    </tr>
+                                </tbody>
+                                <tbody v-else>
+                                    <tr>
+                                        No Record Found
                                     </tr>
                                 </tbody>
                             </table>
