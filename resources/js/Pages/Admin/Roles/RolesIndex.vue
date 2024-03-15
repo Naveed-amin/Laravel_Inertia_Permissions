@@ -35,8 +35,8 @@
                                             <td class="border px-4 py-2">{{ index + 1 }}</td>
                                             <td class="border px-4 py-2">{{ role.name }}</td>
                                             <td class="border px-4 py-2">
-                                                <Link :href="`roles/${role.id}/edit`">Edit</Link> |
-                                                <Link :href="`roles/${role.id}`" method="DELETE">Delete</Link>
+                                                <Link :href="`roles/${role.id}/edit`" class="text-green-400 hover:text-green-600">Edit</Link> |
+                                                <Link :href="`roles/${role.id}`" method="DELETE" class="text-red-400 hover:text-red-600">Delete</Link>
                                             </td>
                                         </tr>
                                     </tbody>

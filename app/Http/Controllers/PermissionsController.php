@@ -25,7 +25,7 @@ class PermissionsController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Permissions/PermissionsCreate');
     }
 
     /**
@@ -33,7 +33,11 @@ class PermissionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $permission = Permission::create($request->all());
+        return to_route('permissions.index');
     }
 
     /**
@@ -49,7 +53,14 @@ class PermissionsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $permission = Permission::where('id', $id)->first();
+        $permission = new PermissionsResource($permission);
+
+        return Inertia::render('Admin/Permissions/PermissionsEdit',[
+            'permission' => $permission,
+        ]);
+
+
     }
 
     /**
@@ -57,7 +68,11 @@ class PermissionsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $permission = Permission::findById($id);
+        return back();
     }
 
     /**
@@ -65,6 +80,8 @@ class PermissionsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $permission = Permission::findById($id);
+        $permission->delete();
+        return back();
     }
 }
