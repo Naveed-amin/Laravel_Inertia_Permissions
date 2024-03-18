@@ -16,7 +16,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         $users = UsersResource::collection($users);
-        return Inertia::render('Admin/Users/UserIndex',[
+        return Inertia::render('Admin/Users/UserIndex', [
             'users' => $users,
         ]);
     }
@@ -42,7 +42,6 @@ class UsersController extends Controller
 
         $user = User::create($request->all());
         return to_route('users.index');
-
     }
 
     /**
@@ -58,9 +57,9 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
         $user = new UsersResource($user);
-        return Inertia::render('Admin/Users/UsersEdit',[
+        return Inertia::render('Admin/Users/UsersEdit', [
             'user' => $user
         ]);
     }
@@ -71,7 +70,7 @@ class UsersController extends Controller
     public function update(Request $request, string $id)
     {
 
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
 
         $request->validate([
             'name' => 'required',
@@ -79,8 +78,7 @@ class UsersController extends Controller
             'password' => 'required',
         ]);
         $user->update($request->all());
-       return to_route('users.index');
-
+        return to_route('users.index');
     }
 
     /**
@@ -88,7 +86,7 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::where('id',$id)->first();
+        $user = User::where('id', $id)->first();
         $user->delete();
         return back();
     }
