@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PermissionsResource;
 use App\Http\Resources\RolesResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolesController extends Controller
@@ -13,11 +15,14 @@ class RolesController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+
     {
+        $roles = RolesResource::collection(Role::with('permissions')->get());
+
         return Inertia::render(
             'Admin/Roles/RolesIndex',
             [
-                'roles' => RolesResource::collection(Role::all()),
+                'roles' => $roles,
             ]
         );
     }
@@ -62,6 +67,7 @@ class RolesController extends Controller
         $role = new RolesResource($role);
         return Inertia::render('Admin/Roles/RolesEdit',[
             'role' => $role,
+            'permissions' => Permission::all(),
         ]);
     }
 
@@ -70,8 +76,13 @@ class RolesController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $role = Role::where('id', $id)->first();
         $role->update($request->all());
+
+        if($request->permissions){
+            $role->syncPermissions(array_keys($request->permissions));
+        }
 
         return to_route('roles.index');
     }

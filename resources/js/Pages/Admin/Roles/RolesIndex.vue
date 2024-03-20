@@ -21,12 +21,14 @@
                             <hr>
 
                             <div class="w-full">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 w-full">
+                                <table
+                                    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 w-full">
                                     <thead
                                         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th class="px-4 py-2">#</th>
                                             <th class="px-4 py-2">Name</th>
+                                            <th class="px-4 py-2">Permissions</th>
                                             <th class="px-4 py-2">Actions</th>
                                         </tr>
                                     </thead>
@@ -34,9 +36,26 @@
                                         <tr v-for="(role, index) in roles" :key="role.id">
                                             <td class="border px-4 py-2">{{ index + 1 }}</td>
                                             <td class="border px-4 py-2">{{ role.name }}</td>
+                                            <template v-if="role.permissions && role.permissions.length > 0">
+                                                <td>
+
+                                                    <template v-for="permission in role.permissions"
+                                                        :key="permission.id">
+                                                        <span
+                                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{
+                                        permission.name }}</span>
+                                                    </template>
+                                                </td>
+                                            </template>
+                                            <template v-else>
+                                                <td class="border px-4 py-2">
+                                                    No permissions defined</td>
+                                            </template>
                                             <td class="border px-4 py-2">
-                                                <Link :href="`roles/${role.id}/edit`" class="text-green-400 hover:text-green-600">Edit</Link> |
-                                                <Link :href="`roles/${role.id}`" method="DELETE" class="text-red-400 hover:text-red-600">Delete</Link>
+                                                <Link :href="`roles/${role.id}/edit`"
+                                                    class="text-green-400 hover:text-green-600">Edit</Link> |
+                                                <Link :href="`roles/${role.id}`" method="DELETE"
+                                                    class="text-red-400 hover:text-red-600">Delete</Link>
                                             </td>
                                         </tr>
                                     </tbody>

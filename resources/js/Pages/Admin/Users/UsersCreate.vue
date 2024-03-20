@@ -42,6 +42,11 @@
                                     <div v-if="form.errors.password">{{ form.errors.password }}</div>
                                 </div>
 
+                                <div v-for="role in roles" :key="role.id">
+                                    <input type="checkbox" v-model="form.roles[role.name]" />
+                                    <label for="checkbox">{{ role.name }}</label>
+                                </div>
+
                                 <button type="submit"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
                             </form>
@@ -71,6 +76,14 @@ const form = useForm({
     name: null,
     email: null,
     password: null,
+    roles: {},
+})
+
+const props = defineProps({
+    roles: {
+        type: Array,
+        required: true,
+    },
 })
 
 

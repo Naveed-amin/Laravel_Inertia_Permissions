@@ -6,6 +6,8 @@ use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -14,7 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
         $users = UsersResource::collection($users);
         return Inertia::render('Admin/Users/UserIndex', [
             'users' => $users,
@@ -26,7 +28,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Users/UsersCreate');
+        return Inertia::render('Admin/Users/UsersCreate',[
+            'roles' => Role::all(),
+        ]);
     }
 
     /**
@@ -34,6 +38,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -41,6 +46,9 @@ class UsersController extends Controller
         ]);
 
         $user = User::create($request->all());
+        if($request->roles){
+            $user->assignRole(array_keys($request->roles));
+        }
         return to_route('users.index');
     }
 
@@ -60,7 +68,8 @@ class UsersController extends Controller
         $user = User::where('id', $id)->first();
         $user = new UsersResource($user);
         return Inertia::render('Admin/Users/UsersEdit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::all(),
         ]);
     }
 

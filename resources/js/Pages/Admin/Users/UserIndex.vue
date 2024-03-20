@@ -28,6 +28,7 @@
                                         <th class="px-4 py-2">#</th>
                                         <th class="px-4 py-2">Name</th>
                                         <th class="px-4 py-2">Email</th>
+                                        <th class="px-4 py-2">Roles</th>
 
                                         <th>Actions</th>
                                     </tr>
@@ -37,6 +38,22 @@
                                         <td class="border px-4 py-2">{{ index + 1 }}</td>
                                         <td class="border px-4 py-2">{{ user.name }}</td>
                                         <td class="border px-4 py-2">{{ user.email }}</td>
+
+                                        <template v-if="user.roles && user.roles.length > 0">
+                                                <td>
+
+                                                    <template v-for="role in user.roles"
+                                                        :key="role.id">
+                                                        <span
+                                                            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{
+                                        role.name }}</span>
+                                                    </template>
+                                                </td>
+                                            </template>
+                                            <template v-else>
+                                                <td class="border px-4 py-2">
+                                                    No roless defined</td>
+                                            </template>
                                         <td class="border px-4 py-2">
                                             <Link :href="`users/${user.id}/edit`"
                                                 class="text-green-400 hover:text-green-600">

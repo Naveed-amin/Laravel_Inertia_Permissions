@@ -24,6 +24,16 @@
                                     <div v-if="form.errors.name">{{ form.errors.name }}</div>
                                 </div>
 
+                                <div class="mb-5">
+                                    <label for="permissions_name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-whitedark:text-gray-400">Permissions</label>
+
+                                </div>
+                                <div v-for="permission in permissions" :key="permission.id">
+                                    <input type="checkbox"  v-model="form.permissions[permission.name]" />
+                                    <label for="checkbox">{{ permission.name }}</label>
+                                </div>
+
                                 <button type="submit"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
                             </form>
@@ -47,23 +57,35 @@ import { onMounted } from "vue";
 import { usePage } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 
+
+
 const page = usePage()
 
 const props = defineProps({
-    role: Array,
+    role: {
+        type: Object,
+        required: true,
+    },
+    permissions: {
+        type: Array,
+        required: true,
+    },
 });
 
 const form = useForm({
-    name: null,
+    name: props.role.name,
+    permissions: {},
 })
 
 function submit() {
     router.put(`/roles/${props.role.id}`, form)
 }
 
-onMounted(() => {
-    form.name = props.role.name;
-});
+// onMounted(() => {
+//     form.name = props.role.name;
+// });
 
 // const user = computed(() => form.name)
 </script>
+
+
